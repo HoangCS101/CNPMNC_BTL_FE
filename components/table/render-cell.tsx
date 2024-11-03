@@ -1,10 +1,10 @@
 import { User, Tooltip, Chip } from "@nextui-org/react";
-import React from "react";
+import React ,{ useEffect, useState } from "react";
 import { DeleteIcon } from "../icons/table/delete-icon";
 import { EditIcon } from "../icons/table/edit-icon";
 import { EyeIcon } from "../icons/table/eye-icon";
 import { users } from "./data";
-
+import axios from "axios";
 interface Props {
   user: (typeof users)[number];
   columnKey: string | React.Key;
@@ -12,17 +12,10 @@ interface Props {
 
 export const RenderCell = ({ user, columnKey }: Props) => {
   // @ts-ignore
+  
   const cellValue = user[columnKey];
   switch (columnKey) {
-    case "name":
-      return (
-        <User
-          
-          
-        >
-          
-        </User>
-      );
+    
     case "role":
       return (
         <div>

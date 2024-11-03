@@ -17,7 +17,7 @@ export const AddUser = () => {
     <div>
       <>
         <Button onPress={onOpen} color="primary">
-          Add User
+          Add Product
         </Button>
         <Modal
           isOpen={isOpen}
@@ -28,27 +28,24 @@ export const AddUser = () => {
             {(onClose) => (
               <>
                 <ModalHeader className="flex flex-col gap-1">
-                  Add User
+                  Add Products
                 </ModalHeader>
                 <ModalBody>
-                  <Input label="Email" variant="bordered" />
-                  <Input label="First Name" variant="bordered" />
-                  <Input label="Last Name" variant="bordered" />
-                  <Input label="Phone Number" variant="bordered" />
+                  <Input label="Name product" variant="bordered" />
+                  <Input label="Count" variant="bordered" />
+                  <Input label="Status" variant="bordered" />
+                  <Input label="Condition" variant="bordered" />
+                  <Input label="Total Valude" variant="bordered" />
+                  <Input label="Condition" variant="bordered" />
 
-                  <Input label="Password" type="password" variant="bordered" />
-                  <Input
-                    label="Confirm Password"
-                    type="password"
-                    variant="bordered"
-                  />
+                  
                 </ModalBody>
                 <ModalFooter>
                   <Button color="danger" variant="flat" onClick={onClose}>
                     Close
                   </Button>
                   <Button color="primary" onPress={onClose}>
-                    Add User
+                    Add Products
                   </Button>
                 </ModalFooter>
               </>

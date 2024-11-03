@@ -47,12 +47,10 @@ export const Accounts = () => {
           <InfoIcon />
           <DotsIcon />
         </div>
-        {/* <div className="flex flex-row gap-3.5 flex-wrap">
+        <div className="flex flex-row gap-3.5 flex-wrap">
           <AddUser />
-          <Button color="primary" startContent={<ExportIcon />}>
-            Export to CSV
-          </Button>
-        </div> */}
+          
+        </div>
       </div>
       <div className="max-w-[95rem] mx-auto w-full">
         <TableWrapper />
