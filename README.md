@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Next.js & NextUI Template
 
 This is a template for creating applications using Next.js 14 (app directory) and NextUI (v2).
@@ -51,3 +52,17 @@ After modifying the `.npmrc` file, you need to run `pnpm install` again to ensur
 ## License
 
 Licensed under the [MIT license](https://github.com/nextui-org/next-app-template/blob/main/LICENSE).
+=======
+# Assets Management Project
+
+## Table of Contents
+
+- [Installation](#installation)
+
+## Installation
+### Frontend
+- Clone the repository
+- npm install
+- npx next build
+- npm start
+>>>>>>> 52735de6959f8959a685576f63a997ebcd07b2f9
