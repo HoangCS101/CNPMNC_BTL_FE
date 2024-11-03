@@ -1,68 +1,92 @@
 {
-  "extends": [
-    "next",
-    "next/core-web-vitals",
-    "eslint:all",
-    "plugin:react/all",
-    "plugin:import/errors",
-    "plugin:import/warnings"
-  ],
+  "$schema": "https://json.schemastore.org/eslintrc.json",
   "env": {
-    "browser": true,
-    "es2020": true,
-    "node": true,
-    "jest": true
+    "browser": false,
+    "es2021": true,
+    "node": true
   },
+  "extends": [
+    "plugin:react/recommended",
+    "plugin:prettier/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:jsx-a11y/recommended"
+  ],
+  "plugins": ["react", "unused-imports", "import", "@typescript-eslint", "jsx-a11y", "prettier"],
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "sourceType": "module",
     "ecmaFeatures": {
       "jsx": true
+    },
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
     }
   },
   "rules": {
-    "indent": ["error", 2],
-    "quotes": ["error", "single"],
-    "semi": ["error", "never"],
-    "linebreak-style": 0,
-    "func-style": 0,
-    "max-len": 0,
-    "no-magic-numbers": 0,
-    "max-lines-per-function": 0,
-    "space-before-function-paren": ["error", {
-      "anonymous": "never",
-      "named": "never",
-      "asyncArrow": "always"
-    }],
-    "function-call-argument-newline": 0,
-    "padded-blocks": 0,
-    "padding-line-between-statements": [
-      "error",
-      { "blankLine": "always", "prev": "*", "next": "return" },
-      { "blankLine": "always", "prev": ["const", "let", "var"], "next": "*"},
-      { "blankLine": "any",    "prev": ["const", "let", "var"], "next": ["const", "let", "var"]}
+    "no-console": "warn",
+    "react/prop-types": "off",
+    "react/jsx-uses-react": "off",
+    "react/react-in-jsx-scope": "off",
+    "react-hooks/exhaustive-deps": "off",
+    "jsx-a11y/click-events-have-key-events": "warn",
+    "jsx-a11y/interactive-supports-focus": "warn",
+    "prettier/prettier": "warn",
+    "no-unused-vars": "off",
+    "unused-imports/no-unused-vars": "off",
+    "unused-imports/no-unused-imports": "warn",
+    "@typescript-eslint/no-unused-vars": [
+      "warn",
+      {
+        "args": "after-used",
+        "ignoreRestSiblings": false,
+        "argsIgnorePattern": "^_.*?$"
+      }
     ],
-    "object-curly-spacing": ["error", "always"],
-    "one-var": ["error", "never"],
-    "quote-props": 0,
-    "react/prop-types": 0,
-    "react/jsx-indent": [2, 2],
-    "react/jsx-indent-props": [2, 2],
-    "react/jsx-filename-extension": 0,
-    "react/react-in-jsx-scope": 0,
-    "react/jsx-no-literals": 0,
-    "react/jsx-one-expression-per-line": 0,
-    "react/jsx-max-depth": 0,
-    "react/jsx-newline": 0,
-    "react/jsx-props-no-spreading": 0,
-    "react/jsx-max-props-per-line": ["error", {"maximum": {"single": 3, "multi": 1}}]
-  },
-  "ignorePatterns": ["node_modules/", ".next/"],
-  "settings": {
-    "import/resolver": {
-      "alias": [
-          ["@/components", "./src/components"],
-          ["@/classes", "./src/classes"]
-      ]
-    }
+    "import/order": [
+      "warn",
+      {
+        "groups": [
+          "type",
+          "builtin",
+          "object",
+          "external",
+          "internal",
+          "parent",
+          "sibling",
+          "index"
+        ],
+        "pathGroups": [
+          {
+            "pattern": "~/**",
+            "group": "external",
+            "position": "after"
+          }
+        ],
+        "newlines-between": "always"
+      }
+    ],
+    "react/self-closing-comp": "warn",
+    "react/jsx-sort-props": [
+      "warn",
+      {
+        "callbacksLast": true,
+        "shorthandFirst": true,
+        "noSortAlphabetically": false,
+        "reservedFirst": true
+      }
+    ],
+    "padding-line-between-statements": [
+      "warn",
+      {"blankLine": "always", "prev": "*", "next": "return"},
+      {"blankLine": "always", "prev": ["const", "let", "var"], "next": "*"},
+      {
+        "blankLine": "any",
+        "prev": ["const", "let", "var"],
+        "next": ["const", "let", "var"]
+      }
+    ]
   }
 }
