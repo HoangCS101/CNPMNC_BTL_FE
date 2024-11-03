@@ -19,7 +19,7 @@ export const TableWrapper = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get('http://10.128.104.97:8080/asset');
-        setData(response.data); // Giả sử response.data là mảng dữ liệu
+        setData(response.data.data); // Giả sử response.data là mảng dữ liệu
       } catch (error) {
         console.error("Error fetching data:", error);
       }

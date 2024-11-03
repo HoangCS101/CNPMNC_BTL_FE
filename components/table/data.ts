@@ -1,9 +1,9 @@
 export const columns = [
    {name: 'NAME PRODUCT', uid: 'name'},
-   {name: 'COUNT', uid: 'count'},
+   {name: 'PRICE', uid: 'price'},
    {name: 'STATUS', uid: 'status'},
    {name: 'CONDITON', uid: 'condition'},
-   {name: 'TOTAL VALUE', uid: 'total'},
+   {name: 'QUANTITY', uid: 'quantity'},
    {name: 'ACTIONS', uid: 'actions'},
 ];
 export const users = [
