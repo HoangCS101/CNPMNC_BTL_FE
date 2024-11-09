@@ -1,8 +1,8 @@
 import type { NextPage } from "next";
-import { Content } from "@/components/home/content";
+import { Product } from "@/components/products";
 
 const Home: NextPage = () => {
-  return <Content />;
+  return <Product />;
 };
 
 export default Home;
