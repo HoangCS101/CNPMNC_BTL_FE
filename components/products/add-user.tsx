@@ -11,7 +11,7 @@ import {
 import React, { useState } from "react";
 import axios from "axios";
 
-export const AddUser = () => {
+export const AddProduct = () => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   
   // State để lưu trữ thông tin sản phẩm
