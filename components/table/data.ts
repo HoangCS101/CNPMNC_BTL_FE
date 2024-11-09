@@ -3,6 +3,7 @@ export const columns = [
    {name: 'PRICE', uid: 'price'},
    {name: 'STATUS', uid: 'status'},
    {name: 'CONDITON', uid: 'condition'},
+  //  {name: 'DE', uid: 'actions'},
    {name: 'QUANTITY', uid: 'quantity'},
    {name: 'ACTIONS', uid: 'actions'},
 ];
