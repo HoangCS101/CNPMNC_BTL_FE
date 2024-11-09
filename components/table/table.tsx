@@ -1,5 +1,8 @@
+import React, { useState } from "react";
+import { columns, users, User } from "./data";
+import { RenderCell } from "./render-cell";
+import Modal from "../modal";
 import {
-  Link,
   Table,
   TableBody,
   TableCell,
@@ -7,6 +10,7 @@ import {
   TableHeader,
   TableRow,
 } from "@nextui-org/react";
+
 import React, { useEffect, useState } from "react";
 import { columns } from "./data"; // Chỉ import columns
 import { RenderCell } from "./render-cell";
@@ -24,8 +28,22 @@ const fakeData = [
     }
 }
 ];
+
 export const TableWrapper = () => {
-  const [data, setData] = useState([]);
+  const [data] = useState<User[]>(users); // Sử dụng dữ liệu giả từ `data.ts`
+  const [visible, setVisible] = useState(false);
+  const [selectedUser, setSelectedUser] = useState<User | null>(null);
+
+
+  const handleDetailsClick = (user: User) => {
+    setSelectedUser(user);
+    setVisible(true);
+  };
+
+  const closeHandler = () => {
+    setVisible(false);
+    setSelectedUser(null);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -41,7 +59,7 @@ export const TableWrapper = () => {
     fetchData();
     // setData(fakeData);
   }, []);
-  
+
 
   return (
     <div className="w-full flex flex-col gap-4">
@@ -58,17 +76,34 @@ export const TableWrapper = () => {
           )}
         </TableHeader>
         <TableBody items={data}>
-          {(item) => (
+          {(item: User) => (
             <TableRow key={item.id}>
               {(columnKey) => (
                 <TableCell>
-                  {RenderCell({ user: item, columnKey })}
+                  <RenderCell
+                    user={item}
+                    columnKey={columnKey}
+                    onDetailsClick={() => handleDetailsClick(item)}
+                  />
                 </TableCell>
               )}
             </TableRow>
           )}
         </TableBody>
       </Table>
+
+      <Modal isOpen={visible} onClose={closeHandler}>
+        {selectedUser && (
+          <div>
+            <h2>Chi tiết sản phẩm</h2>
+            <p><strong>Tên sản phẩm:</strong> {selectedUser.name}</p>
+            <p><strong>Giá:</strong> {selectedUser.total}</p>
+            <p><strong>Tình trạng:</strong> {selectedUser.status}</p>
+            <p><strong>Điều kiện:</strong> {selectedUser.condition}</p>
+            <p><strong>Số lượng:</strong> {selectedUser.count}</p>
+          </div>
+        )}
+      </Modal>
     </div>
   );
 };
