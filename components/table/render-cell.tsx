@@ -1,41 +1,29 @@
+import React from "react";
 import { User, Tooltip, Chip } from "@nextui-org/react";
-import React ,{ useEffect, useState } from "react";
 import { DeleteIcon } from "../icons/table/delete-icon";
 import { EditIcon } from "../icons/table/edit-icon";
 import { EyeIcon } from "../icons/table/eye-icon";
-import { users } from "./data";
-import axios from "axios";
+import { User as UserType } from "./data";
+
 interface Props {
-  user: (typeof users)[number];
+  user: UserType;
   columnKey: string | React.Key;
+  onDetailsClick: () => void;
 }
 
-export const RenderCell = ({ user, columnKey }: Props) => {
-  // @ts-ignore
-  
-  const cellValue = user[columnKey];
+export const RenderCell = ({ user, columnKey, onDetailsClick }: Props) => {
+  const cellValue = user[columnKey as keyof UserType];
+
   switch (columnKey) {
-    
-    case "role":
-      return (
-        <div>
-          <div>
-            <span>{cellValue}</span>
-          </div>
-          <div>
-            <span>{user.team}</span>
-          </div>
-        </div>
-      );
     case "status":
       return (
         <Chip
           size="sm"
           variant="flat"
           color={
-            cellValue === "active"
+            cellValue === "Còn hàng"
               ? "success"
-              : cellValue === "paused"
+              : cellValue === "Hết hàng"
               ? "danger"
               : "warning"
           }
@@ -46,10 +34,10 @@ export const RenderCell = ({ user, columnKey }: Props) => {
 
     case "actions":
       return (
-        <div className="flex items-center gap-4 ">
+        <div className="flex items-center gap-4">
           <div>
             <Tooltip content="Details">
-              <button onClick={() => console.log("View user", user.id)}>
+              <button onClick={onDetailsClick}>
                 <EyeIcon size={20} fill="#979797" />
               </button>
             </Tooltip>
@@ -75,6 +63,6 @@ export const RenderCell = ({ user, columnKey }: Props) => {
         </div>
       );
     default:
-      return cellValue;
+      return <>{cellValue}</>;
   }
 };

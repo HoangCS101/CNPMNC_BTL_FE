@@ -1,5 +1,8 @@
+import React, { useState } from "react";
+import { columns, users, User } from "./data";
+import { RenderCell } from "./render-cell";
+import Modal from "../modal";
 import {
-  Link,
   Table,
   TableBody,
   TableCell,
@@ -7,26 +10,21 @@ import {
   TableHeader,
   TableRow,
 } from "@nextui-org/react";
-import React, { useEffect, useState } from "react";
-import { columns } from "./data"; // Chỉ import columns
-import { RenderCell } from "./render-cell";
-import axios from "axios";
 
 export const TableWrapper = () => {
-  const [data, setData] = useState([]);
+  const [data] = useState<User[]>(users); // Sử dụng dữ liệu giả từ `data.ts`
+  const [visible, setVisible] = useState(false);
+  const [selectedUser, setSelectedUser] = useState<User | null>(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get('http://10.128.104.97:8080/asset');
-        setData(response.data.data); // Giả sử response.data là mảng dữ liệu
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
+  const handleDetailsClick = (user: User) => {
+    setSelectedUser(user);
+    setVisible(true);
+  };
 
-    fetchData();
-  }, []);
+  const closeHandler = () => {
+    setVisible(false);
+    setSelectedUser(null);
+  };
 
   return (
     <div className="w-full flex flex-col gap-4">
@@ -43,17 +41,34 @@ export const TableWrapper = () => {
           )}
         </TableHeader>
         <TableBody items={data}>
-          {(item) => (
+          {(item: User) => (
             <TableRow key={item.id}>
               {(columnKey) => (
                 <TableCell>
-                  {RenderCell({ user: item, columnKey })}
+                  <RenderCell
+                    user={item}
+                    columnKey={columnKey}
+                    onDetailsClick={() => handleDetailsClick(item)}
+                  />
                 </TableCell>
               )}
             </TableRow>
           )}
         </TableBody>
       </Table>
+
+      <Modal isOpen={visible} onClose={closeHandler}>
+        {selectedUser && (
+          <div>
+            <h2>Chi tiết sản phẩm</h2>
+            <p><strong>Tên sản phẩm:</strong> {selectedUser.name}</p>
+            <p><strong>Giá:</strong> {selectedUser.total}</p>
+            <p><strong>Tình trạng:</strong> {selectedUser.status}</p>
+            <p><strong>Điều kiện:</strong> {selectedUser.condition}</p>
+            <p><strong>Số lượng:</strong> {selectedUser.count}</p>
+          </div>
+        )}
+      </Modal>
     </div>
   );
 };
