@@ -11,10 +11,29 @@ import {
   TableRow,
 } from "@nextui-org/react";
 
+import React, { useEffect, useState } from "react";
+import { columns } from "./data"; // Chỉ import columns
+import { RenderCell } from "./render-cell";
+import axios from "axios";
+const fakeData = [
+  {
+    "id": 1,
+    "name": "asset1",
+    "quantity": 10,
+    "price": 10,
+    "status": "INACTIVE",
+    "department": {
+        "id": 1,
+        "name": "department1"
+    }
+}
+];
+
 export const TableWrapper = () => {
   const [data] = useState<User[]>(users); // Sử dụng dữ liệu giả từ `data.ts`
   const [visible, setVisible] = useState(false);
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
+
 
   const handleDetailsClick = (user: User) => {
     setSelectedUser(user);
@@ -25,6 +44,22 @@ export const TableWrapper = () => {
     setVisible(false);
     setSelectedUser(null);
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('http://192.168.231.44:8080/asset');
+        setData(response.data.data); // Giả sử response.data là mảng dữ liệu
+        console.log(response.data); //
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+    // setData(fakeData);
+  }, []);
+
 
   return (
     <div className="w-full flex flex-col gap-4">

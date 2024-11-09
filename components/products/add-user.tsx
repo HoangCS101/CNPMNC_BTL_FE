@@ -11,14 +11,14 @@ import {
 import React, { useState } from "react";
 import axios from "axios";
 
-export const AddUser = () => {
+export const AddProduct = () => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  
-  // State để lưu trữ thông tin sản phẩm
+
+  // State để lưu trữ thông tin sản phẩm và department dưới dạng đối tượng
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [status, setStatus] = useState("");
-  const [condition, setCondition] = useState("");
+  const [department, setDepartment] = useState({ id: 0, name: "" });  // Department dưới dạng đối tượng
   const [quantity, setQuantity] = useState("");
 
   const handleAddProduct = async () => {
@@ -26,24 +26,25 @@ export const AddUser = () => {
       name,
       price,
       status,
-      condition,
+      departmentName: department.name,  // Truyền department.name vào API
       quantity,
     };
 
     try {
-      const response = await axios.post('http://10.128.104.97:8080/user/1/asset/post', productData);
+      const response = await axios.post('http://192.168.231.44:8080/user/1/asset/post', productData);
       console.log('Product added:', response.data);
-      // Bạn có thể thêm logic xử lý sau khi thành công ở đây
-      onOpenChange(false); // Đóng modal sau khi gửi
-      // Reset các trường nhập liệu
+      // Đóng modal và reset các trường sau khi thêm sản phẩm thành công
+      onOpenChange(false);
       setName("");
       setPrice("");
       setStatus("");
-      setCondition("");
+      setDepartment({ id: 0, name: "" });  // Reset department về mặc định
       setQuantity("");
+      window.location.reload();
     } catch (error) {
       console.error("Error adding product:", error);
     }
+
   };
 
   return (
@@ -60,9 +61,10 @@ export const AddUser = () => {
           {(onClose) => (
             <>
               <ModalHeader className="flex flex-col gap-1">
-                Add Products
+                Add Product
               </ModalHeader>
               <ModalBody>
+                {/* Input fields */}
                 <Input 
                   label="Name product" 
                   variant="bordered" 
@@ -70,7 +72,7 @@ export const AddUser = () => {
                   onChange={(e) => setName(e.target.value)}
                 />
                 <Input 
-                  label="price" 
+                  label="Price" 
                   variant="bordered" 
                   value={price}
                   onChange={(e) => setPrice(e.target.value)}
@@ -82,10 +84,10 @@ export const AddUser = () => {
                   onChange={(e) => setStatus(e.target.value)}
                 />
                 <Input 
-                  label="Condition" 
+                  label="Department" 
                   variant="bordered" 
-                  value={condition}
-                  onChange={(e) => setCondition(e.target.value)}
+                  value={department.name}  // Hiển thị department.name
+                  onChange={(e) => setDepartment({ ...department, name: e.target.value })}  // Cập nhật department.name
                 />
                 <Input 
                   label="Quantity" 
@@ -99,7 +101,7 @@ export const AddUser = () => {
                   Close
                 </Button>
                 <Button color="primary" onPress={handleAddProduct}>
-                  Add Products
+                  Add Product
                 </Button>
               </ModalFooter>
             </>
